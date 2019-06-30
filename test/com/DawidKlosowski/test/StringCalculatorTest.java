@@ -57,6 +57,9 @@ public class StringCalculatorTest {
         StringCalculator.add("1,-5,-8,9,-14");
     }
 
-
+    @Test
+    public void addNumbersOver1000IgnoringThousandDigit(){
+        assertEquals(6,StringCalculator.add("3,1003"));
+    }
 
 }

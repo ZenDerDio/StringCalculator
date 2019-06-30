@@ -16,7 +16,9 @@ public class StringCalculator {
     }
 
     private IntStream numbersStream(){
-        return Arrays.stream(values.split(delimiter)).mapToInt(Integer::parseInt);
+        return Stream.of(values.split(delimiter))
+                .mapToInt(Integer::parseInt)
+                .map(n->n %1000);
     }
 
     private int finalSum(){
