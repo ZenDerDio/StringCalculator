@@ -1,6 +1,7 @@
 package com.DawidKlosowski;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -19,9 +20,7 @@ public class StringCalculator {
     }
 
     private int finalSum(){
-        if(numbersStream().anyMatch(n -> n < 0)){
-            throw new IllegalArgumentException("Negatives not allowed");
-        }
+        catchNegatives();
         return numbersStream().sum();
     }
 
@@ -30,6 +29,14 @@ public class StringCalculator {
             return 0;
 
         return definedDelimiter(numbers).finalSum();
+    }
+    public void catchNegatives(){
+        String collectionNegatives = numbersStream().filter(n->n<0)
+                .mapToObj(Integer::toString)
+                .collect(Collectors.joining(","));//adding numbers back into string to show exception message
+        if(!collectionNegatives.isEmpty()){
+            throw new IllegalArgumentException("Negatives not allowed: " + collectionNegatives);
+        }
     }
 
     private static StringCalculator definedDelimiter(String numbers){

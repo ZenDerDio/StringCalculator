@@ -43,11 +43,18 @@ public class StringCalculatorTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void addNegativeNumbersExceptionString(){
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Negatives not allowed: -2");
         StringCalculator.add("-2");
+    }
+
+    @Test
+    public void addNegativeMultipleNumbersExceptionString(){
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Negatives not allowed: -5,-8,-14");
+        StringCalculator.add("1,-5,-8,9,-14");
     }
 
 
