@@ -1,7 +1,10 @@
 package com.DawidKlosowski.test;
 
 import com.DawidKlosowski.StringCalculator;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import static org.junit.Assert.assertEquals;
 
 
@@ -36,6 +39,15 @@ public class StringCalculatorTest {
     @Test
     public void addMultipleNumbersUserDefinedDelimiterString(){
         assertEquals(5,StringCalculator.add("//;\n2;3"));
+    }
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
+    @Test(expected = IllegalArgumentException.class)
+    public void addNegativeNumbersExceptionString(){
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Negatives not allowed: -2");
+        StringCalculator.add("-2");
     }
 
 

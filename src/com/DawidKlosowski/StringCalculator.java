@@ -1,6 +1,7 @@
 package com.DawidKlosowski;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class StringCalculator {
@@ -12,10 +13,16 @@ public class StringCalculator {
         this.values = values;
         this.delimiter = delimiter;
     }
+
+    private IntStream numbersStream(){
+        return Arrays.stream(values.split(delimiter)).mapToInt(Integer::parseInt);
+    }
+
     private int finalSum(){
-        return Arrays.stream(values.split(delimiter))
-                .mapToInt(Integer::parseInt)
-                .sum();
+        if(numbersStream().anyMatch(n -> n < 0)){
+            throw new IllegalArgumentException("Negatives not allowed");
+        }
+        return numbersStream().sum();
     }
 
     public static int add(String numbers){
