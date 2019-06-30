@@ -12,22 +12,25 @@ public class StringCalculator {
         this.values = values;
         this.delimiter = delimiter;
     }
+    private int finalSum(){
+        return Arrays.stream(values.split(delimiter))
+                .mapToInt(Integer::parseInt)
+                .sum();
+    }
 
     public static int add(String numbers){
         if(numbers.isEmpty())
             return 0;
 
-        StringCalculator calculator;
+        return definedDelimiter(numbers).finalSum();
+    }
 
+    private static StringCalculator definedDelimiter(String numbers){
         if(numbers.startsWith("//")){
-            String[] parts = numbers.split("\n",2);
-            calculator = new StringCalculator(parts[1],parts[0].substring(2));
+            String[] temporaryPieces = numbers.split("\n",2);
+            return new StringCalculator(temporaryPieces[1],temporaryPieces[0].substring(2));
         }else{
-            calculator = new StringCalculator(numbers,",|\n");
+            return new StringCalculator(numbers,",|\n");
         }
-
-        Stream<String> sumStream = Arrays.stream(calculator.values.split(calculator.delimiter));
-        return sumStream.mapToInt(Integer::parseInt).sum();
-
     }
 }
