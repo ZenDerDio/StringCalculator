@@ -25,6 +25,14 @@ public class StringCalculatorTest {
     public void addMultipleNumbersWithCommaString(){
         assertEquals(17,StringCalculator.add("9,3,1,4"));
     }
+    @Test
+    public void addMultipleNumbersNewLineSeparatorString(){
+        assertEquals(5,StringCalculator.add("2\n3"));
+    }
+    @Test
+    public void addMultipleNumbersNewLineCommaSeparatorString(){
+        assertEquals(6,StringCalculator.add("1\n2,3"));
+    }
 
 
 
