@@ -67,4 +67,9 @@ public class StringCalculatorTest {
         assertEquals(9,StringCalculator.add("//[****}\n2****3****4"));
     }
 
+    @Test
+    public void addMultipleDefinedDelimiters(){
+        assertEquals(9,StringCalculator.add("//[^}[;]\n2^3;4"));
+    }
+
 }

@@ -17,9 +17,13 @@ public class StringCalculator {
     }
 
     private IntStream numbersStream(){
-        return Stream.of(values.split(delimiter))
-                .mapToInt(Integer::parseInt)
-                .map(n->n %1000);
+        if(values.isEmpty()) {
+            return IntStream.empty();
+        }else{
+            return Stream.of(values.split(delimiter))
+                        .mapToInt(Integer::parseInt)
+                        .map(n->n %1000);
+        }
     }
 
     private int finalSum(){
@@ -28,16 +32,14 @@ public class StringCalculator {
     }
 
     public static int add(String numbers){
-        if(numbers.isEmpty())
-            return 0;
-
         return definedDelimiter(numbers).finalSum();
     }
+
     public void catchNegatives(){
         String collectionNegatives = numbersStream().filter(n->n<0)
                 .mapToObj(Integer::toString)
-                //adding numbers back into string to show exception message
                 .collect(Collectors.joining(","));
+                //adding numbers back into string to show exception message
         if(!collectionNegatives.isEmpty()){
             throw new IllegalArgumentException("Negatives not allowed: " + collectionNegatives);
         }
@@ -51,11 +53,12 @@ public class StringCalculator {
             return new StringCalculator(numbers,",|\n");
         }
     }
+
     private static String parseDelimiter(String input){
         //allows to use special regex signs as delimiters
         String delimiter=input.substring(2);
-        if(delimiter.startsWith("[")){
-            delimiter=delimiter.substring(1,delimiter.length()-1);
+        if(delimiter.startsWith("[")) {
+            delimiter = delimiter.substring(1, delimiter.length() - 1);
         }
         return Pattern.quote(delimiter);
     }
