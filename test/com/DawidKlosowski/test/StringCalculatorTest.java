@@ -33,6 +33,10 @@ public class StringCalculatorTest {
     public void addMultipleNumbersNewLineCommaSeparatorString(){
         assertEquals(6,StringCalculator.add("1\n2,3"));
     }
+    @Test
+    public void addMultipleNumbersUserDefinedDelimiterString(){
+        assertEquals(5,StringCalculator.add("//;\n2;3"));
+    }
 
 
 
