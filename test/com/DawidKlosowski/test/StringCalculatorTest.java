@@ -21,6 +21,10 @@ public class StringCalculatorTest {
     public void addTwoNumbersWithCommaString(){
         assertEquals(12,StringCalculator.add("9,3"));
     }
+    @Test
+    public void addMultipleNumbersWithCommaString(){
+        assertEquals(17,StringCalculator.add("9,3,1,4"));
+    }
 
 
 
