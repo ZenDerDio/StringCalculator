@@ -62,4 +62,9 @@ public class StringCalculatorTest {
         assertEquals(6,StringCalculator.add("3,1003"));
     }
 
+    @Test
+    public void addMultipleCharDelimiter(){
+        assertEquals(9,StringCalculator.add("//[****}\n2****3****4"));
+    }
+
 }

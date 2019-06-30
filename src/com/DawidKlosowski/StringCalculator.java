@@ -1,6 +1,7 @@
 package com.DawidKlosowski;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -35,7 +36,8 @@ public class StringCalculator {
     public void catchNegatives(){
         String collectionNegatives = numbersStream().filter(n->n<0)
                 .mapToObj(Integer::toString)
-                .collect(Collectors.joining(","));//adding numbers back into string to show exception message
+                //adding numbers back into string to show exception message
+                .collect(Collectors.joining(","));
         if(!collectionNegatives.isEmpty()){
             throw new IllegalArgumentException("Negatives not allowed: " + collectionNegatives);
         }
@@ -44,9 +46,17 @@ public class StringCalculator {
     private static StringCalculator definedDelimiter(String numbers){
         if(numbers.startsWith("//")){
             String[] temporaryPieces = numbers.split("\n",2);
-            return new StringCalculator(temporaryPieces[1],temporaryPieces[0].substring(2));
+            return new StringCalculator(temporaryPieces[1],parseDelimiter(temporaryPieces[0]));
         }else{
             return new StringCalculator(numbers,",|\n");
         }
+    }
+    private static String parseDelimiter(String input){
+        //allows to use special regex signs as delimiters
+        String delimiter=input.substring(2);
+        if(delimiter.startsWith("[")){
+            delimiter=delimiter.substring(1,delimiter.length()-1);
+        }
+        return Pattern.quote(delimiter);
     }
 }
