@@ -64,12 +64,13 @@ public class StringCalculatorTest {
 
     @Test
     public void addMultipleCharDelimiter(){
-        assertEquals(9,StringCalculator.add("//[****}\n2****3****4"));
+        assertEquals(9,StringCalculator.add("//[****]\n2****3****4"));
     }
 
     @Test
     public void addMultipleDefinedDelimiters(){
         assertEquals(9,StringCalculator.add("//[^][;]\n2^3;4"));
+        assertEquals(9,StringCalculator.add("//[---][**]\n2---3**4"));
     }
 
 }

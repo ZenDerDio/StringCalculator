@@ -39,7 +39,7 @@ public class StringCalculator {
         String collectionNegatives = numbersStream().filter(n->n<0)
                 .mapToObj(Integer::toString)
                 .collect(Collectors.joining(","));
-                //adding numbers back into string to show exception message
+                //adding numbers back into string to show them in exception message
         if(!collectionNegatives.isEmpty()){
             throw new IllegalArgumentException("Negatives not allowed: " + collectionNegatives);
         }
@@ -59,8 +59,9 @@ public class StringCalculator {
         String delimiter=input.substring(2);
         if(delimiter.startsWith("[")) {
             delimiter = delimiter.substring(1, delimiter.length() - 1);
-            return Stream.of(delimiter.split("]\\[")).map(Pattern::quote).collect(Collectors.joining("|"));
         }
-        return Pattern.quote(delimiter);
+        return Stream.of(delimiter.split("]\\["))
+                .map(Pattern::quote)
+                .collect(Collectors.joining("|"));
     }
 }
